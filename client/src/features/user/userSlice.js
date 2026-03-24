@@ -27,7 +27,6 @@ export const updateUser = createAsyncThunk('user/update', async ({userData ,toke
     }
 })
 
-
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -37,6 +36,9 @@ const userSlice = createSlice({
     extraReducers: (builder)=>{
         builder.addCase(fetchUser.fulfilled, (state, action)=>{
             state.value = action.payload
+        }).addCase(fetchUser.rejected, (state, action)=>{
+            console.error('User fetch failed:', action.error)
+            state.value = null
         }).addCase(updateUser.fulfilled, (state, action)=>{
             state.value = action.payload
         })

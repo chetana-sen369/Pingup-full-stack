@@ -30,6 +30,8 @@ const connectionsSlice = createSlice({
                 state.followers = action.payload.followers
                 state.following = action.payload.following
             }
+        }).addCase(fetchConnections.rejected, (state, action)=>{
+            console.error('Connections fetch failed:', action.error)
         })
     }
 })

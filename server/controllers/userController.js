@@ -13,7 +13,21 @@ export const getUserData = async (req, res) => {
         const { userId } = req.auth()
         const user = await User.findById(userId)
         if(!user){
-            return res.json({success: false, message: "User not found"})
+            // Create new user if not found
+            const newUser = await User.create({
+                _id: userId,
+                username: `user_${userId.slice(-8)}`,
+                email: `${userId}@clerk.user`, 
+                full_name: `User_${userId.slice(-8)}`, 
+                bio: 'Hey there! I am using PingUp.',
+                profile_picture: '',
+                cover_photo: '',
+                location: '',
+                connections: [],
+                followers: [],
+                following: []
+            })
+            return res.json({success: true, user: newUser})
         }
         res.json({success: true, user})
     } catch (error) {
@@ -224,6 +238,10 @@ export const getUserConnections = async (req, res) => {
     try {
         const {userId} = req.auth()
         const user = await User.findById(userId).populate('connections followers following')
+
+        if(!user){
+            return res.json({success: false, message: "User not found in database"})
+        }
 
         const connections = user.connections
         const followers = user.followers

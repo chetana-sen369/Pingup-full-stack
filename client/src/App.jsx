@@ -30,7 +30,9 @@ const App = () => {
     const fetchData = async () => {
       if(user){
       const token = await getToken()
-      dispatch(fetchUser(token))
+      // Fetch user first to ensure user exists in database
+      await dispatch(fetchUser(token))
+      // Then fetch connections
       dispatch(fetchConnections(token))
       }
     }
@@ -57,6 +59,12 @@ const App = () => {
           ), {position: "bottom-right"})
         }
       }
+
+      eventSource.onerror = (error) => {
+        console.error('EventSource failed:', error);
+        eventSource.close();
+      };
+
       return ()=>{
         eventSource.close()
       }
