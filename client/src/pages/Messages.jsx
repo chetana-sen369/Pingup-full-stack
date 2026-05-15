@@ -22,11 +22,11 @@ const Messages = () => {
         <div className='flex flex-col gap-3'>
           {connections.map((user)=>(
             <div key={user._id} className='max-w-xl flex flex-warp gap-5 p-6 bg-white shadow rounded-md'>
-              <img src={user.profile_picture} alt="" className='rounded-full size-12 mx-auto'/>
+              <img src={user?.profile_picture} alt="" className='rounded-full size-12 mx-auto'/>
               <div className='flex-1'>
-                <p className='font-medium text-slate-700'>{user.full_name}</p>
-                <p className='text-slate-500'>@{user.username}</p>
-                <p className='text-sm text-gray-600'>{user.bio}</p>
+                <p className='font-medium text-slate-700'>{user?.full_name}</p>
+                <p className='text-slate-500'>@{user?.username}</p>
+                <p className='text-sm text-gray-600'>{user?.bio}</p>
               </div>
 
               <div className='flex flex-col gap-2 mt-4'>
