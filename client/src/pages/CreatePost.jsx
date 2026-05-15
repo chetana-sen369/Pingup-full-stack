@@ -62,10 +62,10 @@ const CreatePost = () => {
          <div className='max-w-xl bg-white p-4 sm:p-8 sm:pb-3 rounded-xl shadow-md space-y-4'>
             {/* Header */}
             <div className='flex items-center gap-3'>
-              <img src={user.profile_picture} alt="" className='w-12 h-12 rounded-full shadow'/>
+              <img src={user?.profile_picture} alt="" className='w-12 h-12 rounded-full shadow'/>
               <div>
-                <h2 className='font-semibold'>{user.full_name}</h2>
-                <p className='text-sm text-gray-500'>@{user.username}</p>
+                <h2 className='font-semibold'>{user?.full_name}</h2>
+                <p className='text-sm text-gray-500'>@{user?.username}</p>
               </div>
             </div>
 
