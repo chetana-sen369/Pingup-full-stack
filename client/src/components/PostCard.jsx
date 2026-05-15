@@ -33,7 +33,7 @@ const PostCard = ({post}) => {
                 toast(data.message)
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error("Failed to like post. Please try again.")
         }
     }
 

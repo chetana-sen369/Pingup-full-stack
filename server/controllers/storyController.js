@@ -40,7 +40,7 @@ export const addUserStory = async (req, res) =>{
 
     } catch (error) {
        console.log(error);
-       res.json({ success: false, message: error.message }); 
+       res.json({ success: false, message: "Failed to create story. Please try again." }); 
     }
 }
 
@@ -60,6 +60,6 @@ export const getStories = async (req, res) =>{
         res.json({ success: true, stories }); 
     } catch (error) {
        console.log(error);
-       res.json({ success: false, message: error.message }); 
+       res.json({ success: false, message: "Failed to load stories. Please try again." }); 
     }
 }

@@ -27,7 +27,7 @@ const ChatBox = () => {
       const token = await getToken()
       dispatch(fetchMessages({token, userId}))
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to load messages. Please try again.")
     }
   }
 
@@ -52,7 +52,7 @@ const ChatBox = () => {
         throw new Error(data.message)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to load messages. Please try again.")
     }
   }
 

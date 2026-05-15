@@ -15,36 +15,37 @@ const RecentMessages = () => {
     const fetchRecentMessages = async () => {
         try {
           const token = await getToken()
-            const { data } = await api.get('/api/user/recent-messages', {
+            const { data } = await api.get('/api/message/user/recent-messages', {
                 headers: { Authorization: `Bearer ${token}` }
             })
             if(data.success){
                 // Group messages by sender and get the latest message for each sender
                 const groupedMessages = data.messages.reduce((acc, message)=>{
-                    const senderId = message.from_user_id._id;
-                    if(!acc[senderId] || new Date(message.createdAt) > new Date(acc[senderId].createdAt)){
+                    const senderId = message.from_user_id?._id;
+                    if(!senderId) return acc;
+                    if(!acc[senderId] || new Date(message.createdAt || 0) > new Date(acc[senderId].createdAt || 0)){
                         acc[senderId] = message
                     }
                     return acc;
                 }, {})
 
                 // Sort messages by date
-                const sortedMessages = Object.values(groupedMessages).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                const sortedMessages = Object.values(groupedMessages).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
 
                 setMessages(sortedMessages)
             }else{
-                toast.error(data.message)
+                toast.error("Failed to fetch recent messages")
             }
         } catch (error) {
-             toast.error(error.message)
+             toast.error("Failed to load recent messages. Please try again.")
         }
     }
 
     useEffect(()=>{
         if(user){
             fetchRecentMessages()
-            setInterval(fetchRecentMessages, 30000)
-            return ()=> {clearInterval()}
+            const intervalId = setInterval(fetchRecentMessages, 30000)
+            return ()=> {clearInterval(intervalId)}
         }
         
     },[user])
@@ -54,22 +55,26 @@ const RecentMessages = () => {
       <h3 className='font-semibold text-slate-8 mb-4'>Recent Messages</h3>
       <div className='flex flex-col max-h-56 overflow-y-scroll no-scrollbar'>
         {
-            messages.map((message, index)=>(
-                <Link to={`/messages/${message.from_user_id._id}`} key={index} className='flex items-start gap-2 py-2 hover:bg-slate-100'>
-                    <img src={message.from_user_id?.profile_picture} alt="" className='w-8 h-8 rounded-full'/>
+            messages.map((message, index)=>{
+                const senderId = message.from_user_id?._id;
+                if(!senderId) return null;
+                return (
+                <Link to={`/messages/${senderId}`} key={index} className='flex items-start gap-2 py-2 hover:bg-slate-100'>
+                    <img src={message.from_user_id?.profile_picture || '/default-avatar.png'} alt="" className='w-8 h-8 rounded-full'/>
                     <div className='w-full'>
                         <div className='flex justify-between'>
-                            <p className='font-medium'>{message.from_user_id?.full_name}</p>
-                            <p className='text-[10px] text-slate-400'>{moment(message.createdAt).fromNow()}</p>
+                            <p className='font-medium'>{message.from_user_id?.full_name || 'Unknown User'}</p>
+                            <p className='text-[10px] text-slate-400'>{message.createdAt ? moment(message.createdAt).fromNow() : ''}</p>
                         </div>
                         <div className='flex justify-between'>
                             <p className='text-gray-500'>{message.text ? message.text : 'Media'}</p>
-                            {!message.seen && <p className='bg-indigo-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px]'>1</p>}
+                            {message.seen === false && <p className='bg-indigo-500 text-white w-4 h-4 flex items-center justify-center rounded-full text-[10px]'>1</p>}
                         </div>
                     </div>
                     
                 </Link>
-            ))
+                )
+            })
         }
       </div>
     </div>

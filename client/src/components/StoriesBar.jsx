@@ -29,7 +29,7 @@ const StoriesBar = () => {
             }
 
         } catch (error) {
-            toast.error(error.message)
+            toast.error("Failed to load stories. Please try again.")
         }
     }
 

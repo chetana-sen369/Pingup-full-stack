@@ -26,7 +26,7 @@ const Feed = () => {
         toast.error(data.message)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to load feed. Please try again.")
     }
     setLoading(false)
   }

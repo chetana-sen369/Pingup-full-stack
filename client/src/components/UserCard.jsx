@@ -27,7 +27,7 @@ const UserCard = ({user}) => {
                 toast.error(data.message)
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error("Failed to follow user. Please try again.")
         }
     }
 
@@ -46,7 +46,7 @@ const UserCard = ({user}) => {
                 toast.error(data.message)
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error("Failed to follow user. Please try again.")
         }
     }
 

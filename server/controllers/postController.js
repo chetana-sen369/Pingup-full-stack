@@ -44,7 +44,7 @@ export const addPost = async (req, res) => {
         res.json({ success: true, message: "Post created successfully" });
     } catch (error) {
         console.log(error);
-        res.json({ success: false, message: error.message });
+        res.json({ success: false, message: "Failed to create post. Please try again." });
     }
 }
 
@@ -61,7 +61,7 @@ export const getFeedPosts = async (req, res) =>{
         res.json({ success: true, posts})
     } catch (error) {
         console.log(error);
-        res.json({ success: false, message: error.message });
+        res.json({ success: false, message: "Failed to load feed. Please try again." });
     }
 }
 
@@ -85,6 +85,6 @@ export const likePost = async (req, res) =>{
 
     } catch (error) {
         console.log(error);
-        res.json({ success: false, message: error.message });
+        res.json({ success: false, message: "Failed to like post. Please try again." });
     }
 }

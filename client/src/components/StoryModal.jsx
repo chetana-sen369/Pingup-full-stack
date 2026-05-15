@@ -81,7 +81,7 @@ const StoryModal = ({setShowModal, fetchStories}) => {
                 toast.error(data.message)
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error("Failed to create story. Please try again.")
         }
     }
 

@@ -36,7 +36,7 @@ const Profile = () => {
         toast.error(data.message)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to load profile. Please try again.")
     }
   }
 

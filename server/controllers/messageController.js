@@ -77,7 +77,7 @@ export const sendMessage = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.json({ success: false, message: error.message });
+        res.json({ success: false, message: "Failed to send message. Please try again." });
     }
 }
 
@@ -98,7 +98,7 @@ export const getChatMessages = async (req, res) => {
 
         res.json({ success: true, messages });
     } catch (error) {
-        res.json({ success: false, message: error.message });
+        res.json({ success: false, message: "Failed to load messages. Please try again." });
     }
 }
 
@@ -109,6 +109,7 @@ export const getUserRecentMessages = async (req, res) => {
 
         res.json({ success: true, messages });
     } catch (error) {
-        res.json({ success: false, message: error.message });
+        console.log(error.message)
+        res.json({ success: false, message: "Failed to load recent messages. Please try again." });
     }
 }

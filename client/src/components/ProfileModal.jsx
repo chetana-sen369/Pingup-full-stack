@@ -40,7 +40,7 @@ const ProfileModal = ({setShowEdit}) => {
 
             setShowEdit(false)
         } catch (error) {
-            toast.error(error.message)
+            toast.error("Failed to update profile. Please try again.")
         }
     }
 

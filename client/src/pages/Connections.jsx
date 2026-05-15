@@ -36,7 +36,7 @@ const Connections = () => {
         toast(data.message)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to unfollow. Please try again.")
     }
   }
 
@@ -52,7 +52,7 @@ const Connections = () => {
         toast(data.message)
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error("Failed to unfollow. Please try again.")
     }
   }
 

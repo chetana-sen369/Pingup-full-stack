@@ -29,7 +29,7 @@ const Discover = () => {
         setLoading(false)
         setInput('')
       } catch (error) {
-        toast.error(error.message)
+        toast.error("Failed to search. Please try again.")
       }
       setLoading(false)
     }
